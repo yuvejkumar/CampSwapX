@@ -18,21 +18,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCvBBVnsBHHW11lpcdizPJXANguLK-m_lM',
-    appId: '1:184048274985:web:478ddda6cc1512076cd638',
-    messagingSenderId: '184048274985',
-    projectId: 'student-management-syste-2ea31',
-    authDomain: 'student-management-syste-2ea31.firebaseapp.com',
-    storageBucket: 'student-management-syste-2ea31.firebasestorage.app',
-    measurementId: 'G-78LTJRFX97',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    authDomain: '',
+    storageBucket: '',
+    measurementId: '',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDZf0mhxKq8Mntw4dIBRJnPfLXh_IPLtrI',
-    appId: '1:184048274985:android:7f85f76ff210d49a6cd638',
-    messagingSenderId: '184048274985',
-    projectId: 'student-management-syste-2ea31',
-    storageBucket: 'student-management-syste-2ea31.firebasestorage.app',
+    apiKey: '',
+    appId: '',
+    messagingSenderId: '',
+    projectId: '',
+    storageBucket: '',
   );
 }
 
