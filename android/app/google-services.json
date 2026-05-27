@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "184048274985",
+    "project_id": "student-management-syste-2ea31",
+    "storage_bucket": "student-management-syste-2ea31.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184048274985:android:bc237f01386c9d3e6cd638",
+        "android_client_info": {
+          "package_name": "com.yuvejkumar.campswapx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184048274985-qm22kiftd3jf4972mr66mb6cbioos8f8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yuvejkumar.campswapx",
+            "certificate_hash": "6921e48d10fa5165e7dbf26d933d83f8ad4544ea"
+          }
+        },
+        {
+          "client_id": "184048274985-338dbovhncqkva0cr5r8rkt5no9908t0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZf0mhxKq8Mntw4dIBRJnPfLXh_IPLtrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184048274985-338dbovhncqkva0cr5r8rkt5no9908t0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CampSwapX – Campus Marketplace</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --clr-bg:       #07080F;
+      --clr-surface:  #0F1120;
+      --clr-surface2: #161829;
+      --clr-accent:   #4EFFA6;
+      --clr-accent2:  #5B8BFF;
+      --clr-text:     #E8EAF6;
+      --clr-muted:    #7B82A8;
+      --clr-border:   rgba(255,255,255,0.08);
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+      --radius:       16px;
+      --radius-sm:    10px;
+      --shadow:       0 20px 60px rgba(0,0,0,0.5);
+    }
+    body { background: var(--clr-bg); color: var(--clr-text); font-family: var(--font-body); font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--clr-bg); }
+    ::-webkit-scrollbar-thumb { background: var(--clr-accent); border-radius: 3px; }
+
+    /* BUTTONS */
+    .btn-primary { display: inline-block; background: var(--clr-accent); color: #07080F; font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; padding: 14px 28px; border-radius: 50px; transition: all 0.3s ease; letter-spacing: 0.01em; }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(78,255,166,0.35); }
+    .btn-primary.large { padding: 16px 36px; font-size: 1rem; }
+    .btn-ghost { display: inline-block; border: 1.5px solid var(--clr-border); color: var(--clr-text); font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; padding: 14px 28px; border-radius: 50px; transition: all 0.3s ease; }
+    .btn-ghost:hover { border-color: var(--clr-accent); color: var(--clr-accent); background: rgba(78,255,166,0.06); }
+    .btn-ghost.large { padding: 16px 36px; font-size: 1rem; }
+    span { color: var(--clr-accent); }
+
+    /* SECTION HEADER */
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-header h2 { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; line-height: 1.15; color: var(--clr-text); }
+    .section-header.light h2 { color: #fff; }
+    .section-tag { display: inline-block; background: rgba(78,255,166,0.1); color: var(--clr-accent); font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 14px; border-radius: 50px; margin-bottom: 14px; border: 1px solid rgba(78,255,166,0.2); }
+
+    /* PLACEHOLDERS */
+    .placeholder { background: linear-gradient(135deg, #141629 0%, #0d0f1e 100%); border: 2px dashed rgba(78,255,166,0.25); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; }
+    .ph-label { color: var(--clr-muted); font-size: 0.82rem; line-height: 1.5; }
+    .ph-label strong { color: var(--clr-accent); }
+    .ph-label small { color: #5a6080; }
+    .placeholder-sm { background: rgba(78,255,166,0.04); border: 1.5px dashed rgba(78,255,166,0.2); border-radius: var(--radius-sm); padding: 12px 16px; font-size: 0.78rem; color: var(--clr-muted); margin-top: 16px; line-height: 1.5; }
+    .placeholder-sm strong { color: var(--clr-accent); }
+    .placeholder-lg { background: linear-gradient(135deg, #0f1120 0%, #0a0c18 100%); border: 2px dashed rgba(91,139,255,0.25); border-radius: var(--radius); min-height: 320px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; }
+    .ph-label-lg { color: var(--clr-muted); font-size: 0.85rem; line-height: 1.6; }
+    .ph-label-lg strong { color: var(--clr-accent2); }
+    .ph-label-lg small { color: #5a6080; }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 6%; background: rgba(7,8,15,0.85); backdrop-filter: blur(18px); border-bottom: 1px solid var(--clr-border); }
+    .nav-logo { font-family: var(--font-display); font-size: 1.4rem; font-weight: 800; color: #fff; letter-spacing: -0.02em; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 0.9rem; color: var(--clr-muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--clr-accent); }
+    .nav-cta { background: rgba(78,255,166,0.1); border: 1px solid rgba(78,255,166,0.3); color: var(--clr-accent); font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; padding: 9px 22px; border-radius: 50px; transition: all 0.3s; }
+    .nav-cta:hover { background: var(--clr-accent); color: #07080F; }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; gap: 60px; padding: 120px 6% 80px; position: relative; overflow: hidden; }
+    .hero-bg-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.18; pointer-events: none; }
+    .blob1 { width: 600px; height: 600px; background: var(--clr-accent); top: -150px; left: -200px; }
+    .blob2 { width: 500px; height: 500px; background: var(--clr-accent2); bottom: -100px; right: -150px; }
+    .hero-content { flex: 1; max-width: 580px; }
+    .hero-badge { display: inline-block; background: rgba(91,139,255,0.12); border: 1px solid rgba(91,139,255,0.3); color: var(--clr-accent2); font-size: 0.82rem; font-weight: 600; padding: 6px 16px; border-radius: 50px; margin-bottom: 24px; animation: fadeUp 0.6s ease both; }
+    .hero-title { font-family: var(--font-display); font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 800; line-height: 1.05; color: #fff; margin-bottom: 20px; animation: fadeUp 0.7s ease both; }
+    .hero-sub { font-size: 1.05rem; color: var(--clr-muted); line-height: 1.7; margin-bottom: 36px; animation: fadeUp 0.8s ease both; }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; animation: fadeUp 0.9s ease both; }
+    .hero-stats { display: flex; align-items: center; gap: 24px; animation: fadeUp 1s ease both; }
+    .stat span { display: block; font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--clr-accent); }
+    .stat p { font-size: 0.8rem; color: var(--clr-muted); margin-top: 2px; }
+    .stat-divider { width: 1px; height: 40px; background: var(--clr-border); }
+
+    /* PHONES */
+    .hero-phones { flex: 1; max-width: 460px; position: relative; height: 540px; animation: fadeUp 0.9s ease both; }
+    .phone { position: absolute; width: 220px; border-radius: 26px; border: 2px solid var(--clr-border); background: var(--clr-surface); overflow: hidden; box-shadow: var(--shadow); }
+    .phone-screen { width: 100%; height: 460px; }
+    .phone-front { bottom: 0; right: 0; z-index: 2; animation: floatA 4s ease-in-out infinite; }
+    .phone-back  { top: 0; left: 0; z-index: 1; opacity: 0.7; animation: floatB 4s ease-in-out infinite; }
+    @keyframes floatA { 0%,100% { transform: translateY(0px); } 50% { transform: translateY(-14px); } }
+    @keyframes floatB { 0%,100% { transform: translateY(-8px); } 50% { transform: translateY(6px); } }
+
+    /* FEATURES */
+    .features { padding: 100px 6%; background: var(--clr-surface); }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .feat-card { background: var(--clr-surface2); border: 1px solid var(--clr-border); border-radius: var(--radius); padding: 32px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .feat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--clr-accent), transparent); opacity: 0; transition: opacity 0.3s; }
+    .feat-card:hover { transform: translateY(-4px); border-color: rgba(78,255,166,0.2); }
+    .feat-card:hover::before { opacity: 1; }
+    .feat-large { grid-column: span 2; }
+    .feat-wide  { grid-column: span 2; }
+    .feat-icon { font-size: 2rem; margin-bottom: 16px; }
+    .feat-card h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .feat-card p  { font-size: 0.9rem; color: var(--clr-muted); line-height: 1.65; }
+    .feat-screenshot { margin-top: 20px; }
+
+    /* HOW IT WORKS */
+    .how { padding: 100px 6%; background: var(--clr-bg); position: relative; }
+    .how-bg-stripe { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(255,255,255,0.012) 40px, rgba(255,255,255,0.012) 41px); pointer-events: none; }
+    .steps { display: flex; align-items: flex-start; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .step { background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius); padding: 32px; max-width: 280px; flex: 1; min-width: 220px; transition: transform 0.3s; }
+    .step:hover { transform: translateY(-4px); }
+    .step-num { font-family: var(--font-display); font-size: 3rem; font-weight: 800; color: rgba(78,255,166,0.15); line-height: 1; margin-bottom: 16px; }
+    .step-content h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 10px; }
+    .step-content p  { font-size: 0.88rem; color: var(--clr-muted); line-height: 1.65; }
+    .step-screen { margin-top: 20px; }
+    .step-arrow { font-size: 1.8rem; color: var(--clr-accent); align-self: center; opacity: 0.5; }
+
+    /* SHOWCASE */
+    .showcase { padding: 100px 6%; background: var(--clr-surface); }
+    .showcase-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .showcase-card { transition: transform 0.3s; }
+    .showcase-card:hover { transform: translateY(-6px); }
+
+    /* USE CASES */
+    .usecases { padding: 100px 6%; background: var(--clr-bg); }
+    .usecase-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 860px; margin: 0 auto; }
+    .usecase-item { display: flex; align-items: flex-start; gap: 20px; background: var(--clr-surface); border: 1px solid var(--clr-border); border-radius: var(--radius); padding: 28px; transition: all 0.3s; }
+    .usecase-item:hover { border-color: rgba(78,255,166,0.25); transform: translateY(-3px); }
+    .uc-emoji { font-size: 2.2rem; flex-shrink: 0; }
+    .usecase-item h4 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+    .usecase-item p  { font-size: 0.87rem; color: var(--clr-muted); line-height: 1.6; }
+
+    /* TECH */
+    .tech { padding: 100px 6%; background: var(--clr-surface); border-top: 1px solid var(--clr-border); border-bottom: 1px solid var(--clr-border); }
+    .tech-inner { display: flex; align-items: center; justify-content: space-between; gap: 60px; flex-wrap: wrap; }
+    .tech-text { flex: 1; max-width: 480px; }
+    .tech-text h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 800; margin: 12px 0 16px; }
+    .tech-text > p { color: var(--clr-muted); margin-bottom: 28px; }
+    .tech-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .tech-list li { font-size: 0.95rem; color: var(--clr-muted); display: flex; align-items: center; gap: 10px; }
+    .tech-list strong { color: var(--clr-text); }
+.tech-visual { flex: 1; max-width: 380px; height: 320px; position: relative; display: flex; align-items: center; justify-content: center; }
+.orbit { position: absolute; width: 260px; height: 260px; border-radius: 50%; border: 1px dashed rgba(78,255,166,0.15); animation: orbitSpin 8s linear infinite; }
+@keyframes orbitSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .tech-core { position: absolute; width: 110px; height: 110px; border-radius: 50%; background: var(--clr-accent); color: #07080F; font-family: var(--font-display); font-weight: 800; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; text-align: center; z-index: 2; animation: pulse 3s ease-in-out infinite; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 40px rgba(78,255,166,0.3); } 50% { box-shadow: 0 0 80px rgba(78,255,166,0.6); } }
+.tech-circle { position: absolute; width: 80px; height: 80px; border-radius: 50%; background: var(--clr-surface2); border: 1.5px solid var(--clr-border); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; color: var(--clr-muted); font-family: var(--font-display); transition: all 0.3s; animation: counterSpin 8s linear infinite; }
+@keyframes counterSpin { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }    
+    .tech-circle:hover { border-color: var(--clr-accent); color: var(--clr-accent); }
+    .c1 { top: -40px;    left: 50%; margin-left: -40px; }
+.c2 { right: -40px;  top: 50%;  margin-top: -40px; }
+.c3 { bottom: -40px; left: 50%; margin-left: -40px; }
+.c4 { left: -40px;   top: 50%;  margin-top: -40px; }
+
+
+    /* CTA */
+    .cta { padding: 120px 6%; text-align: center; position: relative; overflow: hidden; background: var(--clr-bg); }
+    .cta-bg-blob { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(78,255,166,0.08) 0%, transparent 70%); top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+    .cta h2 { font-family: var(--font-display); font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 20px; }
+    .cta > p { font-size: 1.05rem; color: var(--clr-muted); max-width: 500px; margin: 0 auto 40px; }
+    .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+    .cta-note { font-size: 0.82rem; color: var(--clr-muted); opacity: 0.7; }
+
+    /* FOOTER */
+    .footer { background: var(--clr-surface); border-top: 1px solid var(--clr-border); padding: 60px 6% 0; }
+    .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--clr-border); }
+    .footer-brand .nav-logo { font-size: 1.3rem; margin-bottom: 12px; }
+    .footer-brand p { font-size: 0.85rem; color: var(--clr-muted); line-height: 1.65; max-width: 280px; }
+    .footer-links h4 { font-family: var(--font-display); font-weight: 700; font-size: 0.9rem; color: #fff; margin-bottom: 16px; }
+    .footer-links a { display: block; font-size: 0.85rem; color: var(--clr-muted); margin-bottom: 10px; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--clr-accent); }
+    .footer-bottom { padding: 20px 0; text-align: center; font-size: 0.8rem; color: var(--clr-muted); opacity: 0.6; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .feat-large, .feat-wide { grid-column: span 1; }
+      .showcase-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .tech-visual { display: none; }
+    }
+    @media (max-width: 768px) {
+      .hero { flex-direction: column; padding: 100px 5% 60px; text-align: center; }
+      .hero-actions { justify-content: center; }
+      .hero-stats { justify-content: center; }
+      .hero-phones { display: none; }
+      .features-grid { grid-template-columns: 1fr; }
+      .usecase-list { grid-template-columns: 1fr; }
+      .showcase-grid { grid-template-columns: 1fr; }
+      .steps { flex-direction: column; align-items: center; }
+      .step-arrow { transform: rotate(90deg); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-logo">
+      <img src="logo.png" alt="CampSwapX Logo" style="height: 36px; width: auto; vertical-align: middle;">
+    </div>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#usecases">Use Cases</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#download" class="nav-cta">Get Early Access</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-blob blob1"></div>
+    <div class="hero-bg-blob blob2"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🎓 Exclusive to KARE Students</div>
+      <h1 class="hero-title">Buy. Sell. Swap.<br/><span>Within Campus.</span></h1>
+      <p class="hero-sub">CampSwapX is the student-only marketplace built for Kalasalingam Academy of Research and Education. Trade textbooks, electronics, hostel essentials — all without leaving campus.</p>
+      <p class="hero-sub">Unique Features: Rental Option, Lost & Found Board</p>
+
+      <div class="hero-actions">
+        <a href="#download" class="btn-primary">📲 Get the App</a>
+        <a href="#how" class="btn-ghost">See How It Works →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span>100%</span><p>Campus Only</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span>0₹</span><p>Free to Use</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span>⚡</span><p>Real-Time Chat</p></div>
+      </div>
+    </div>
+    <div class="hero-phones">
+      <!-- SCREENSHOT PLACEHOLDER 1: Browse Listings Screen -->
+      <div class="phone phone-back">
+        <div class="phone-screen">
+          <img src="screenshot1.png" alt="Browse Listings" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+      <!-- SCREENSHOT PLACEHOLDER 2: Item Detail & Chat Screen -->
+      <div class="phone phone-front">
+        <div class="phone-screen">
+          <img src="screenshot2.png" alt="Browse Listings" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <p class="section-tag">What's Inside</p>
+      <h2>Everything You Need to <span>Trade on Campus</span></h2>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card feat-large">
+        <div class="feat-icon">🛒</div>
+        <h3>Smart Marketplace</h3>
+        <p>Post items in seconds with photos, descriptions, and prices. Browse hundreds of listings from your fellow KARE students.</p>
+        <!-- SCREENSHOT PLACEHOLDER 3: Post Item Form -->
+        <div class="feat-screenshot placeholder-sm">
+          📱 <strong>Screen: Post Item Form</strong><br/><small>Shows title, description, price, image upload fields</small>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💬</div>
+        <h3>Real-Time Chat</h3>
+        <p>Message buyers and sellers instantly without ever leaving the app. No more DM juggling.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📞</div>
+        <h3>Direct Call</h3>
+        <p>One tap to dial the seller and close the deal faster — because some things are better said out loud.</p>
+      </div>
+      <div class="feat-card feat-wide">
+        <div class="feat-icon">🔍</div>
+        <h3>Lost & Found Board</h3>
+        <p>Misplaced your ID card near the library? Post it. Found someone's earbuds at the canteen? Share it. CampSwapX has a dedicated lost & found section to help reunite students with their belongings.</p>
+        <!-- SCREENSHOT PLACEHOLDER 4: Lost & Found Screen -->
+        <div class="feat-screenshot placeholder-sm">
+          📱 <strong>Screen: Lost & Found Screen</strong><br/><small>List of lost/found posts with item name, date, location</small>
+        </div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📷</div>
+        <h3>Cloud Image Upload</h3>
+        <p>Upload crisp product photos from your gallery. Stored securely via Cloudinary — fast and reliable.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🔐</div>
+        <h3>Secure Login</h3>
+        <p>Firebase Authentication ensures only verified KARE students get access. Zero outsiders.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="how">
+    <div class="how-bg-stripe"></div>
+    <div class="section-header light">
+      <p class="section-tag">Simple Process</p>
+      <h2>How <span>CampSwapX</span> Works</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h3>Sign Up with Campus ID</h3>
+          <p>Register using your KARE email. Firebase Auth verifies you instantly, keeping the platform safe and student-only.</p>
+        </div>
+        <!-- SCREENSHOT PLACEHOLDER 5: Login/Register Screen -->
+        <div class="step-screen placeholder-sm">
+          📱 <strong>Screen: Login/Register Screen</strong><br/><small>Show email input, password, register button</small>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h3>Post or Browse Items</h3>
+          <p>List your old textbook or electronics in under a minute. Or scroll through listings to find exactly what you need.</p>
+        </div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h3>Chat & Close the Deal</h3>
+          <p>Message the seller via in-app chat, agree on a price, meet on campus, and done. Simple, safe, and fast.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP SCREENS SHOWCASE -->
+  <section class="showcase">
+    <div class="section-header">
+      <p class="section-tag">App Preview</p>
+      <h2>A Closer Look at <span>CampSwapX</span></h2>
+    </div>
+    <div class="showcase-grid">
+      <!-- SCREENSHOT PLACEHOLDER 6: In-App Chat Screen -->
+      <div class="showcase-card">
+        <img src="screenshot3.png" alt="Chat Screen" style="width:100%; border-radius:16px;">
+      </div>
+      <!-- SCREENSHOT PLACEHOLDER 7: My Listings / Profile Screen -->
+      <div class="showcase-card">
+        <img src="screenshot4.png" alt="Chat Screen" style="width:100%; border-radius:16px;">
+      </div>
+      <!-- SCREENSHOT PLACEHOLDER 8: Item Detail Screen -->
+      <div class="showcase-card">
+        <img src="screenshot5.png" alt="Chat Screen" style="width:100%; border-radius:16px;">
+      </div>
+    </div>
+  </section>
+
+  <!-- USE CASES -->
+  <section class="usecases" id="usecases">
+    <div class="section-header">
+      <p class="section-tag">Real Student Scenarios</p>
+      <h2>Made for KARE <span>Student Life</span></h2>
+    </div>
+    <div class="usecase-list">
+      <div class="usecase-item">
+        <div class="uc-emoji">📚</div>
+        <div>
+          <h4>Semester End Book Sale</h4>
+          <p>Done with your 3rd year Engineering textbooks? List them for juniors who need them next sem.</p>
+        </div>
+      </div>
+      <div class="usecase-item">
+        <div class="uc-emoji">💻</div>
+        <div>
+          <h4>Second-Hand Electronics</h4>
+          <p>Upgrading your laptop? Sell your old one to a batchmate at a fair price — no middleman.</p>
+        </div>
+      </div>
+      <div class="usecase-item">
+        <div class="uc-emoji">🛏️</div>
+        <div>
+          <h4>Hostel Essentials Exchange</h4>
+          <p>Mattress, fan, study lamp — pass them on to freshers instead of hauling them home.</p>
+        </div>
+      </div>
+      <div class="usecase-item">
+        <div class="uc-emoji">🔎</div>
+        <div>
+          <h4>Lost Item Recovery</h4>
+          <p>Left your water bottle in the lab? Post a lost report and let the community help you find it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="tech">
+    <div class="tech-inner">
+      <div class="tech-text">
+        <p class="section-tag">Built with Trust</p>
+        <h2>Powered by <span>Reliable Tech</span></h2>
+        <p>CampSwapX is built on a modern, battle-tested stack to ensure your data is safe and transactions are smooth.</p>
+        <ul class="tech-list">
+          <li>🦋 <strong>Flutter</strong> — Smooth cross-platform mobile experience</li>
+          <li>🔥 <strong>Firebase Auth</strong> — Secure, google signin, verified login</li>
+          <li>📦 <strong>Cloud Firestore</strong> — Real-time database</li>
+          <li>☁️ <strong>Cloudinary</strong> — Fast image storage & delivery</li>
+        </ul>
+      </div>
+      <div class="tech-visual">
+        <div class="orbit">
+          <div class="tech-circle c1">Flutter</div>
+          <div class="tech-circle c2">Firebase</div>
+          <div class="tech-circle c3">Firestore</div>
+          <div class="tech-circle c4">Cloudinary</div>
+        </div>
+          <img src="logo.png" alt="CampSwapX" style="width: 70px; height: 70px; object-fit: contain; border-radius: 50%;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / DOWNLOAD -->
+  <section class="cta" id="download">
+    <div class="cta-bg-blob"></div>
+    <h2>Ready to Trade<br/><span>Smarter on Campus?</span></h2>
+    <p>CampSwapX is exclusively available for KARE students. Join the campus community marketplace today.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary large">📲 Download for Android</a>
+      <a href="#" class="btn-ghost large"></a>
+    </div>
+    <p class="cta-note">🔒 Currently app is only for KARE students · currently Free  app ·</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" id="contact">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <img src="logo.png" alt="CampSwapX Logo" style="height: 40px; width: auto; vertical-align: middle;">
+        </div>
+        <p>The campus-exclusive marketplace for KARE students. Buy, sell, swap — within your community.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
+        <a href="#usecases">Use Cases</a>
+      </div>
+      <div class="footer-links">
+        <h4>Legal</h4>
+        <a href="https://sites.google.com/view/campswapx/home" target="_blank">Privacy Policy</a>        <a href="#">Terms of Service</a>
+        <a href="#">Data Deletion</a>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <a href="#">yuvejkumar@gmail.com</a>
+        <a href="#">KARE, Krishnankoil, TN</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 CampSwapX · Built by KARE Students, for KARE Students</p>
+    </div>
+  </footer>
+
+  <script>
+    // SCROLL REVEAL
+    const revealTargets = document.querySelectorAll('.feat-card, .step, .usecase-item, .showcase-card, .tech-circle, .tech-core');
+    revealTargets.forEach(el => el.classList.add('reveal'));
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const idx = Array.from(revealTargets).indexOf(entry.target);
+          setTimeout(() => entry.target.classList.add('visible'), 80 * (idx % 4));
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealTargets.forEach(el => observer.observe(el));
+
+    // NAV ACTIVE LINK
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.getAttribute('id'); });
+      navLinks.forEach(link => { link.style.color = link.getAttribute('href') === '#' + current ? 'var(--clr-accent)' : ''; });
+    });
+
+    // NAV BACKGROUND
+    const nav = document.querySelector('.nav');
+    window.addEventListener('scroll', () => {
+      nav.style.background = window.scrollY > 50 ? 'rgba(7,8,15,0.97)' : 'rgba(7,8,15,0.85)';
+    });
+
+    // STEP ANIMATION
+    const steps = document.querySelectorAll('.step');
+    steps.forEach(s => { s.style.opacity = '0'; s.style.transform = 'translateY(24px)'; s.style.transition = 'opacity 0.5s ease, transform 0.5s ease'; });
+    const stepsObs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        steps.forEach((s, i) => setTimeout(() => { s.style.opacity = '1'; s.style.transform = 'translateY(0)'; }, i * 150));
+        stepsObs.disconnect();
+      }
+    }, { threshold: 0.2 });
+    if (steps.length) stepsObs.observe(steps[0]);
+
+    // SMOOTH SCROLL
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      });
+    });
+  </script>
+</body>
+</html>
