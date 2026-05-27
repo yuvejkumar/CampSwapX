@@ -1,6 +1,8 @@
 # kalasalingammarketplaceapp
 
-A new Flutter project.
+(Similar to OLX with additional feature like rent and Lost & Found)
+Flutter UI → Firebase Auth/DB → CRUD & JSON → Cloudinary (Image in URLs) → Testing.
+→ Soon will be deployed in playstore. Website link : https://campswapx.web.app/
 
 ## Getting Started
 
